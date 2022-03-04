@@ -26,4 +26,16 @@ request.onupgradeneeded = function (event) {
     // Log error here.
     console.log(event.target.errorCode);
   };
+
+  // This function will be executed if an attempt is made to submit a new transaction without a connection.
+  function saveRecord(record) {
+    // Opens a new transaction with the database.
+    const transaction = db.transaction(["new_transaction"], "readwrite");
+
+    //   Access the object store for `new_transaction`.
+    const transactionObjectStore = transaction.objectStore("new_transaction");
+
+    //   Add record to your store with add method.
+    transactionObjectStore.add(record);
+  }
 };
